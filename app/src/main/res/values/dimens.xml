@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="usual">16dp</dimen>
+    <dimen name="list_height">40dp</dimen>
+    <dimen name="ten">10dp</dimen>
+
+    <dimen name="text_middle">15sp</dimen>
+</resources>

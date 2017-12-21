@@ -1,0 +1,28 @@
+<resources>
+    <string name="app_name">NfcUsual</string>
+    <string name="nfc_hint">将此设备靠近NFC卡，你可能需要移动NFC卡找到合适的位置</string>
+    <string name="anr">应用崩溃了&#8230;</string>
+    <string name="id_hex">ID (hex)</string>
+    <string name="id_r_hex">ID (R-hex)</string>
+    <string name="id_dec">ID (dec)</string>
+    <string name="id_r_dec">ID (R-dec)</string>
+    <string name="technologies">技术</string>
+    <string name="mifare_classic_type">MifareClassic类型</string>
+    <string name="mifare_size">Mifare大小</string>
+    <string name="mifare_sectors">mifare分区数</string>
+    <string name="mifare_blocks">mifare分块数</string>
+    <string name="mifare_classic_error">错误信息</string>
+    <string name="mifare_ultralight_type">MifareUltralight类型</string>
+    <string name="receive_data">接收到的数据：</string>
+    <string name="data_length">数据长度</string>
+    <string name="data_hex">数据 (hex)</string>
+    <string name="data_r_hex">数据 (R-hex)</string>
+    <string name="data_dec">数据 (dec)</string>
+    <string name="data_r_dec">数据 (R_dec)</string>
+    <string name="data_to_string">数据 (string)</string>
+    <string name="error">发生错误</string>
+    <string name="open_nfc_error">此设备没有NFC功能</string>
+
+    <string name="clear">Clear</string>
+    <string name="no_record">不存在记录</string>
+</resources>
