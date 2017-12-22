@@ -61,15 +61,16 @@ public class IsoDepParse implements Runnable {
                 try {
                     isoDep.setTimeout(1200);
                     log.info("transceive before");
-                    response = isoDep.transceive(readrecord_apdu);
+                    response = isoDep.transceive(not_apdu);
                     log.info("transceive after");
+
                     int status = ((0xff & response[response.length - 2]) << 8)
                             | (0xff & response[response.length - 1]);
                     if (status != 0x9000) {
                         log.error("retrieve data ,read failure");
                     }else {
                         log.info("retrieve data, read succ");
-                        log.info("retrieve data, result=" + NumeralParse.toReversedHex(response));
+                        log.info("retrieve data, result=" + NumeralParse.toHex(response));
                     }
                     onMessageReceived.onMessage(response);
                 }catch (TagLostException e) {

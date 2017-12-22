@@ -330,17 +330,16 @@ public class MainActivity extends AppCompatActivity{
     private IsoDepParse.OnMessageReceived onMessageReceived = new IsoDepParse.OnMessageReceived() {
         @Override
         public void onMessage(byte[] message) {
-            log.info("onMessage, result=" + NumeralParse.toReversedDec(message));
-            log.info("onMessage, result2=" + NumeralParse.toDec(message));
             log.info("onMessage, result3=" + NumeralParse.toHex(message));
-            log.info("onMessage, result4=" + NumeralParse.toReversedHex(message));
             receiveData();
+
             resultData.add(itemData(getString(R.string.data_length), String.valueOf(message.length)));
-            resultData.add(itemData(getString(R.string.data_hex), NumeralParse.toHex(message)));
-            resultData.add(itemData(getString(R.string.data_r_hex), NumeralParse.toReversedHex(message)));
-            resultData.add(itemData(getString(R.string.data_dec), String.valueOf(NumeralParse.toDec(message))));
-            resultData.add(itemData(getString(R.string.data_r_dec), String.valueOf(NumeralParse.toReversedDec(message))));
-            resultData.add(itemData(getString(R.string.data_to_string), new String(message)));
+            if (message.length > 16) {
+                ArrayList<byte[]> data = NumeralParse.parseRecords(message);
+                parseRecordsListToStrings(data);
+            }else {
+                resultData.add(itemData(getString(R.string.data_hex), NumeralParse.toHex(message)));
+            }
             toMainHandler(ISODEP_ONMESSAGERECEIVE);
         }
 
@@ -352,4 +351,10 @@ public class MainActivity extends AppCompatActivity{
             toMainHandler(ISODEP_ONMESSAGERECEIVE);
         }
     };
+
+    private void parseRecordsListToStrings(ArrayList<byte[]> records){
+        for (int i = 0; i < records.size(); i++) {
+            resultData.add(itemData(String.valueOf(i), NumeralParse.toHex(records.get(i))));
+        }
+    }
 }

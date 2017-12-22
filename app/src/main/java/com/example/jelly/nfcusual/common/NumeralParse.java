@@ -1,11 +1,17 @@
 package com.example.jelly.nfcusual.common;
 
+import java.util.ArrayList;
+
+import darks.log.Logger;
+
 /**
  * Created by jelly on 2017/11/30.
  * 进制转换
  */
 
 public class NumeralParse {
+
+    private static Logger log = Logger.getLogger(NumeralParse.class);
 
     private NumeralParse() {}
 
@@ -57,5 +63,34 @@ public class NumeralParse {
             factor *= 256l;
         }
         return result;
+    }
+
+    public static ArrayList<byte[]> parseRecords(byte[] Records) {
+        int max = (int) Math.ceil((double) Records.length / (double) 16);
+        log.info("分割记录有" + max + "条");
+        ArrayList<byte[]> res = new ArrayList<>();
+
+        for (int i = 0; i < max; i++) {
+            byte[] aRecord;
+            if (i == max-1) {
+                aRecord = new byte[Records.length - i*16];
+            }else {
+                aRecord = new byte[16];
+            }
+
+            for (int j = 16 * i, k = 0; j < 16 * (i + 1); j++, k++) {
+                if (j <= Records.length - 1) {
+                    aRecord[k] = Records[j];
+                }else {
+                    log.info("j=" + j);
+                    break;
+                }
+            }
+            res.add(aRecord);
+        }
+        for (byte[] bs : res) {
+            log.info("分割记录有byte[]" + bs); // 有数据。解析正确。
+        }
+        return res;
     }
 }
