@@ -37,7 +37,6 @@ public class MainActivity extends AppCompatActivity{
     private PendingIntent pendingIntent;
     private NfcAdapter mAdapter;
     private LinearLayout scanHint;
-    private NumeralParse numeralParse;
     private ArrayList<HashMap<String, String>> resultData;
     private ResultAdapter resultAdapter;
     private IsoDepParse isoDepParse;
@@ -127,7 +126,6 @@ public class MainActivity extends AppCompatActivity{
     }
 
     private void init(){
-        numeralParse = new NumeralParse();
         RecyclerView resultContainer = (RecyclerView) findViewById(R.id.result_container);
         scanHint = (LinearLayout) findViewById(R.id.scan_hint);
         resultData = new ArrayList<>();
@@ -149,10 +147,10 @@ public class MainActivity extends AppCompatActivity{
     private ArrayList<HashMap<String, String>> dumpTagData(Tag tag){
         ArrayList<HashMap<String, String>> data = new ArrayList<>();
         byte[] id = tag.getId();
-        data.add(itemData(getString(R.string.id_hex), numeralParse.toHex(id)));
-        data.add(itemData(getString(R.string.id_r_hex), numeralParse.toReversedHex(id)));
-        data.add(itemData(getString(R.string.id_dec), String.valueOf(numeralParse.toDec(id))));
-        data.add(itemData(getString(R.string.id_r_dec), String.valueOf(numeralParse.toReversedDec(id))));
+        data.add(itemData(getString(R.string.id_hex), NumeralParse.toHex(id)));
+        data.add(itemData(getString(R.string.id_r_hex), NumeralParse.toReversedHex(id)));
+        data.add(itemData(getString(R.string.id_dec), String.valueOf(NumeralParse.toDec(id))));
+        data.add(itemData(getString(R.string.id_r_dec), String.valueOf(NumeralParse.toReversedDec(id))));
         String s = "";
         String prefix = "android.nfc.tech.";
         for (String tech : tag.getTechList()) {
@@ -332,16 +330,16 @@ public class MainActivity extends AppCompatActivity{
     private IsoDepParse.OnMessageReceived onMessageReceived = new IsoDepParse.OnMessageReceived() {
         @Override
         public void onMessage(byte[] message) {
-            log.info("onMessage, result=" + numeralParse.toReversedDec(message));
-            log.info("onMessage, result2=" + numeralParse.toDec(message));
-            log.info("onMessage, result3=" + numeralParse.toHex(message));
-            log.info("onMessage, result4=" + numeralParse.toReversedHex(message));
+            log.info("onMessage, result=" + NumeralParse.toReversedDec(message));
+            log.info("onMessage, result2=" + NumeralParse.toDec(message));
+            log.info("onMessage, result3=" + NumeralParse.toHex(message));
+            log.info("onMessage, result4=" + NumeralParse.toReversedHex(message));
             receiveData();
             resultData.add(itemData(getString(R.string.data_length), String.valueOf(message.length)));
-            resultData.add(itemData(getString(R.string.data_hex), numeralParse.toHex(message)));
-            resultData.add(itemData(getString(R.string.data_r_hex), numeralParse.toReversedHex(message)));
-            resultData.add(itemData(getString(R.string.data_dec), String.valueOf(numeralParse.toDec(message))));
-            resultData.add(itemData(getString(R.string.data_r_dec), String.valueOf(numeralParse.toReversedDec(message))));
+            resultData.add(itemData(getString(R.string.data_hex), NumeralParse.toHex(message)));
+            resultData.add(itemData(getString(R.string.data_r_hex), NumeralParse.toReversedHex(message)));
+            resultData.add(itemData(getString(R.string.data_dec), String.valueOf(NumeralParse.toDec(message))));
+            resultData.add(itemData(getString(R.string.data_r_dec), String.valueOf(NumeralParse.toReversedDec(message))));
             resultData.add(itemData(getString(R.string.data_to_string), new String(message)));
             toMainHandler(ISODEP_ONMESSAGERECEIVE);
         }

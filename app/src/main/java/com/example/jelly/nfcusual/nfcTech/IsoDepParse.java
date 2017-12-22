@@ -27,9 +27,6 @@ public class IsoDepParse implements Runnable {
     private byte[] readrecord_apdu;
     private byte[] not_apdu;
 
-
-    private NumeralParse numeralParse;
-
     public IsoDepParse(IsoDep isoDep, OnMessageReceived onMessageReceived) {
 
         this.readrecord_apdu = new byte[] {
@@ -45,7 +42,6 @@ public class IsoDepParse implements Runnable {
 
         this.isoDep = isoDep;
         this.onMessageReceived = onMessageReceived;
-        numeralParse = new NumeralParse();
 
     }
     @Override
@@ -73,7 +69,7 @@ public class IsoDepParse implements Runnable {
                         log.error("retrieve data ,read failure");
                     }else {
                         log.info("retrieve data, read succ");
-                        log.info("retrieve data, result=" + numeralParse.toReversedHex(response));
+                        log.info("retrieve data, result=" + NumeralParse.toReversedHex(response));
                     }
                     onMessageReceived.onMessage(response);
                 }catch (TagLostException e) {
